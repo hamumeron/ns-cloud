@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ns-cloud</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="logo">
+        <div class="logo-icon" aria-hidden="true"></div>
+        <span>ns-cloud</span>
+      </div>
+      <div class="topbar-center">
+        <span class="status-dot" id="status-dot"></span>
+        <span class="status-text" id="status-text">All systems operational</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-time" id="topbar-time"></span>
+        <div class="avatar" aria-label="User: NS">NS</div>
+      </div>
+    </header>
+
+    <div class="main">
+
+      <!-- SIDEBAR -->
+      <nav class="sidebar" aria-label="Main navigation">
+        <div class="nav-section">
+          <div class="nav-label">Overview</div>
+          <button class="nav-item active" data-page="overview">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="1" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="1" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/><rect x="9" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.2"/></svg>
+            Dashboard
+          </button>
+          <button class="nav-item" data-page="repos">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M3 1h10a1 1 0 011 1v12a1 1 0 01-1 1H3a1 1 0 01-1-1V2a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/><path d="M5 5h6M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Repositories
+            <span class="badge">5</span>
+          </button>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">Cloudflare</div>
+          <button class="nav-item" data-page="workers">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5H15l-4.1 3 1.6 5L8 11l-4.5 3 1.6-5L1 6h5.2L8 1z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            Workers
+          </button>
+          <button class="nav-item" data-page="dns">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><path d="M2 8h12M8 2c-2 2-2 8 0 12M8 2c2 2 2 8 0 12" stroke="currentColor" stroke-width="1.2"/></svg>
+            DNS / Zones
+          </button>
+          <button class="nav-item" data-page="analytics">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M1 13l4-4 3 2 4-5 3 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Analytics
+          </button>
+        </div>
+        <div class="nav-section">
+          <div class="nav-label">Deploy</div>
+          <button class="nav-item" data-page="deployments">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 1v10M4 7l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Deployments
+          </button>
+          <button class="nav-item" data-page="logs">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Logs
+          </button>
+          <button class="nav-item" data-page="settings">
+            <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.5" stroke="currentColor" stroke-width="1.2"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.1 3.1l1.4 1.4M11.5 11.5l1.4 1.4M3.1 12.9l1.4-1.4M11.5 4.5l1.4-1.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            Settings
+          </button>
+        </div>
+      </nav>
+
+      <!-- CONTENT AREA -->
+      <main class="content" id="content">
+
+        <!-- OVERVIEW -->
+        <section class="page active" id="page-overview" aria-label="Dashboard">
+          <h1 class="page-title">Dashboard</h1>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-label">Repositories</div>
+              <div class="stat-value">5</div>
+              <div class="stat-sub positive">▲ 2 active PRs</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">CF Requests / day</div>
+              <div class="stat-value" id="req-count">142k</div>
+              <div class="stat-sub positive">▲ +12% vs yesterday</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Workers</div>
+              <div class="stat-value">4</div>
+              <div class="stat-sub positive">All running</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label">Deploy Success</div>
+              <div class="stat-value">98%</div>
+              <div class="stat-sub warn">1 queued</div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">Recent Pushes</span>
+              <span class="pill pill-green">Live</span>
+            </div>
+            <ul class="repo-list" id="recent-pushes" aria-label="Recent repository pushes"></ul>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">Cloudflare Edge Network</span>
+              <span class="pill pill-blue">Global</span>
+            </div>
+            <div class="edge-map" id="edge-map" aria-label="Edge node map"></div>
+          </div>
+        </section>
+
+        <!-- REPOS -->
+        <section class="page" id="page-repos" aria-label="Repositories">
+          <h1 class="page-title">Repositories</h1>
+          <div id="repo-cards"></div>
+        </section>
+
+        <!-- WORKERS -->
+        <section class="page" id="page-workers" aria-label="Workers">
+          <h1 class="page-title">Cloudflare Workers</h1>
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">Active Workers</span>
+              <button class="btn btn-primary" id="new-worker-btn">+ New Worker</button>
+            </div>
+            <div class="worker-grid" id="worker-grid"></div>
+          </div>
+        </section>
+
+        <!-- DNS -->
+        <section class="page" id="page-dns" aria-label="DNS Zones">
+          <h1 class="page-title">DNS / Zones</h1>
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">Managed Zones</span>
+              <button class="btn btn-primary" id="add-record-btn">+ Record</button>
+            </div>
+            <ul class="cf-list" id="dns-list" aria-label="DNS zones"></ul>
+          </div>
+          <div class="section-card" style="margin-top:12px">
+            <div class="section-header">
+              <span class="section-title">Page Rules</span>
+            </div>
+            <ul class="cf-list" id="rules-list" aria-label="Page rules"></ul>
+          </div>
+        </section>
+
+        <!-- ANALYTICS -->
+        <section class="page" id="page-analytics" aria-label="Analytics">
+          <h1 class="page-title">Analytics</h1>
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">Requests — Last 7 days</span>
+              <span class="pill pill-gray">Cloudflare Edge</span>
+            </div>
+            <div class="chart-wrap">
+              <div class="chart-bars" id="chart-bars"></div>
+              <div class="chart-labels" id="chart-labels"></div>
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="section-card">
+              <div class="section-header"><span class="section-title">Top Countries</span></div>
+              <ul class="cf-list" id="country-list" aria-label="Top countries"></ul>
+            </div>
+            <div class="section-card">
+              <div class="section-header"><span class="section-title">Cache Hit Ratio</span></div>
+              <div class="cache-panel">
+                <div class="cache-value">87<span class="cache-unit">%</span></div>
+                <div class="stat-sub positive" style="margin-bottom:12px">▲ +3% vs last week</div>
+                <div class="progress-track"><div class="progress-fill" id="cache-fill"></div></div>
+                <div class="progress-labels"><span>Cached</span><span>Miss 13%</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DEPLOYMENTS -->
+        <section class="page" id="page-deployments" aria-label="Deployments">
+          <h1 class="page-title">Deployments</h1>
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">Recent Deployments</span>
+              <button class="btn btn-primary" id="deploy-now-btn">Deploy Now</button>
+            </div>
+            <ul class="deploy-list" id="deploy-list" aria-label="Deployment history"></ul>
+          </div>
+        </section>
+
+        <!-- LOGS -->
+        <section class="page" id="page-logs" aria-label="Logs">
+          <h1 class="page-title">Logs</h1>
+          <div class="section-card">
+            <div class="section-header">
+              <span class="section-title">Live Logs — api-gateway</span>
+              <span class="pill pill-green" id="log-status">Streaming</span>
+            </div>
+            <div class="log-panel" id="log-panel" aria-live="polite" aria-label="Live log output"></div>
+            <div class="log-toolbar">
+              <button class="btn" id="log-pause-btn">Pause</button>
+              <button class="btn" id="log-clear-btn">Clear</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section class="page" id="page-settings" aria-label="Settings">
+          <h1 class="page-title">Settings</h1>
+          <div class="two-col">
+            <div class="section-card">
+              <div class="section-header"><span class="section-title">GitHub Integration</span></div>
+              <div class="settings-group" id="github-settings"></div>
+            </div>
+            <div class="section-card">
+              <div class="section-header"><span class="section-title">Cloudflare Integration</span></div>
+              <div class="settings-group" id="cf-settings"></div>
+            </div>
+          </div>
+          <div class="section-card" style="margin-top:12px">
+            <div class="section-header">
+              <span class="section-title">Notification Webhooks</span>
+              <button class="btn btn-primary" id="add-webhook-btn">+ Add Webhook</button>
+            </div>
+            <div class="settings-group" id="webhook-settings"></div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container" aria-live="assertive"></div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
